@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+
 import "./globals.css";
+import Sidebar from "@/components/sidebar/sidebar";
 
 
 export const metadata: Metadata = {
@@ -18,7 +19,8 @@ export default function RootLayout({
       <body
         className={` antialiased`}
       >
-        {children}
+        <Sidebar />
+       <div className=" "> {children}</div>
       </body>
     </html>
   );

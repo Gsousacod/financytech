@@ -6,18 +6,11 @@ export default async function Page() {
     const session = await getServerSession();
    
 
-    if(!session) {  
-        redirect('/');
-    }
+    // if(!session) {  
+    //     redirect('/');
+    // }
     return (
-        <>
-        <div>
-            Olá, {session?.user?.name}
-        </div>
-        <div >
-            <LogoutButton />
-        </div>
-        <p>Seu token JWT: </p>
-        </>
+       <div className=""> 
+       <h1>hello word</h1></div>
     )
 }
