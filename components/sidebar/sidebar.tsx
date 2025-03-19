@@ -1,200 +1,125 @@
 "use client";
+import { Children, useState } from "react";
 import Link from "next/link";
 import { Button } from "../ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "../ui/tooltip";
-import {
-  Home,
-  LogOut,
-  Menu,
-  Package,
-  Settings,
-  ShoppingBag,
-  Store,
-  Users,
-} from "lucide-react";
+import { Bell, ClipboardList, Home, LogOut, Menu, Package, Settings, Store, Wallet } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
+import PageTitleUpdater from "../PageTitleUpdate";
 
-export default function Sidebar() {
+type SidebarProps={
+  children: React.ReactNode;
+}
+export default function Sidebar({children}:SidebarProps) {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const pathname = usePathname();
 
-  const isActive = (path: string) => {
-    return pathname === path;
-  };
+  const isActive = (path: string) => pathname === path;
+
+  
 
   return (
-    <div className="flex w-ful flex-col  bg-white">
-      
-      <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 border-r bg-background sm:flex flex-col">
-        <nav className="flex flex-col items-center gap-4 px-2 py-5 ">
-          <TooltipProvider>
-            <Link
-              href="#"
-              className="flex h-9 w-9 shrink-0 items-center justify-center bg-primary text-primary-foreground rounded-full"
-            >
-              <Package className="h-4 w-4 " />
-              <span className="sr-only">Dashboard avatar</span>
-            </Link>
-            <DashboardSidebarNavLink
-              name="Inicio"
-              href="../pages/home"
-              active={isActive("/pages/home")}
-              className=""
-            >
-               <Home className="h-4 w-4 " />
-            </DashboardSidebarNavLink>
-           
-            <DashboardSidebarNavLink
-              name="Tarefas"
-              href="../pages/tasks"
-              active={isActive("/pages/tasks")}
-              className=""
-            >
-              <Store className="h-4 w-4 " />
-            </DashboardSidebarNavLink>
-            <DashboardSidebarNavLink
-              name="Configurações"
-              href="../pages/settings"
-              active={isActive("/pages/settings")}
-              className=""
-            >
-              <Settings className="h-4 w-4 " />
-            </DashboardSidebarNavLink>
-          </TooltipProvider>
+    <div className="flex w-full">
+      {/* Sidebar */}
+      <aside
+        className={cn(
+          "fixed inset-y-0 left-0 z-10 flex flex-col border-r bg-background transition-all duration-300 bg-[#279b48] text-white",
+          isSidebarOpen ? "w-52" : "w-14"
+        )}
+      >
+        {/* Logo */}
+        <div className="flex items-center justify-start p-4">
+          <Link href="/" className="flex items-center gap-2">
+            <Package className="h-6 w-6" />
+            {isSidebarOpen && <span className="text-lg font-bold">FinancyTec</span>}
+          </Link>
+        </div>
+
+        {/* Navigation */}
+        <nav className="flex flex-col items-start gap-2 px-2 py-5 mt-8">
+          <SidebarNavLink name="Início" href="/home" active={isActive("/home")} isSidebarOpen={isSidebarOpen}>
+            <Home className="h-6 w-6" />
+          </SidebarNavLink>
+          <SidebarNavLink name="Lançamentos" href="/tasks" active={isActive("/tasks")} isSidebarOpen={isSidebarOpen}>
+            <Wallet className="h-6 w-6" />
+          </SidebarNavLink>
+          <SidebarNavLink name="Realtórios" href="/settings" active={isActive("/settings")} isSidebarOpen={isSidebarOpen}>
+            <ClipboardList className="h-6 w-6" />
+          </SidebarNavLink>
+          <SidebarNavLink name="Configurações" href="/settings" active={isActive("/settings")} isSidebarOpen={isSidebarOpen}>
+            <Settings className="h-6 w-6" />
+          </SidebarNavLink>
         </nav>
 
-        <nav className="mt-auto flex flex-col items-center gap-4 px-2 py-5">
-          <TooltipProvider>
-            <DashboardSidebarNavLink
-              active={isActive("/page/login")}
-              name="Sair"
-              href="/logout"
-              className=""
-            >
-              <LogOut className="" />
-            </DashboardSidebarNavLink>
-          </TooltipProvider>
+        <nav className="mt-auto flex flex-col items-start gap-2 px-2 py-5">
+          <SidebarNavLink name="Sair" href="/logout" active={isActive("/logout")} isSidebarOpen={isSidebarOpen}>
+            <LogOut className="h-6 w-6" />
+          </SidebarNavLink>
         </nav>
       </aside>
-      <div className="flex  flex-col sm:gap-4 sm:py-4 sm:pl-14 ">
-        <header className="sticky top-0 z-30 flex h-14 bg-blue-500 justify-between sm:justify-end items-center px-4 border-b  gap-4 sm:h-auto sm:border-0 sm:bg-transparent">
+
+    
+      <div className={cn("flex flex-col flex-1 transition-all duration-300", isSidebarOpen ? "ml-52" : "ml-14")}>
+        <header className="sticky top-0 z-30 flex h-14 items-center justify-between  bg-white px-4">
           
-          <Sheet>
+         <div className="flex justify-center items-center">
+         <Button size="icon" variant="ghost" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
+            <Menu className="w-6 h-6" />
+            <span className="sr-only">Abrir/Fechar menu</span>
+          </Button>
+              <p className="pl-4"> 
+                <PageTitleUpdater />
+                </p>
           
-            <SheetTrigger asChild>
-              <Button size="icon" variant="outline" className="sm:hidden">
-                <Menu className="w-5 h-5" />
-                <span className="sr-only">Abrir/Fechar menu</span>
-              </Button>
-            </SheetTrigger>
+         </div>
 
-            <SheetContent side="left" className="sm:max-w-x">
-              <nav className="grid gap-6 text-lg font-medium">
-                <Link
-                  href="#"
-                  className="flex h-10 w-10 bg-primary rounded-full items-center justify-center text-primary-foreground md:text-base gap-2"
-                  prefetch={false}
-                >
-                  <Package className="h-5 w-5 transition-all" />
-                  <span className="sr-only">Logo do Projeto</span>
-                </Link>
-                <Link
-                  href="#"
-                  className="flex items-center  gap-4 px-2.5 text-muted-foreground hover:text-foreground"
-                  prefetch={false}
-                >
-                  <Home className="h-5 w-5 transition-all" />
-                  Inicio
-                </Link>
+       
+          <div className="flex items-center gap-4">
 
-                <Link
-                  href="#"
-                  className="flex items-center  gap-4 px-2.5 text-muted-foreground hover:text-foreground"
-                  prefetch={false}
-                >
-                  <Store className="h-5 w-5 transition-all" />
-                  Pedidos
-                </Link>
-
-                <Link
-                  href="#"
-                  className="flex items-center  gap-4 px-2.5 text-muted-foreground hover:text-foreground"
-                  prefetch={false}
-                >
-                  <ShoppingBag className="h-5 w-5 transition-all" />
-                  Produtos
-                </Link>
-
-                <Link
-                  href="#"
-                  className="flex items-center  gap-4 px-2.5 text-muted-foreground hover:text-foreground"
-                  prefetch={false}
-                >
-                  <Users className="h-5 w-5 transition-all" />
-                  Clientes
-                </Link>
-
-                <Link
-                  href="#"
-                  className="flex items-center  gap-4 px-2.5 text-muted-foreground hover:text-foreground"
-                  prefetch={false}
-                >
-                  <Settings className="h-5 w-5 transition-all" />
-                  Configurações
-                </Link>
-              </nav>
-            </SheetContent>
-          </Sheet>
-          <div className="flex items-center">
-            <p className="px-4">Name</p>
-            <Avatar className="">
+            <p className="px-4">Nome</p>
+            <Avatar>
               <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
+            <Button size="icon" variant="ghost">
+              <Bell className="w-6 h-6" />
+              <span className="sr-only">Notificações</span>
+            </Button>
           </div>
         </header>
+
+        {/* Conteúdo */}
+        <main className="p-4 flex justify-center h-full bg-[#f1f3ee]">
+            <div className="w-5xl">
+            {children}
+            </div>
+          </main>
       </div>
     </div>
   );
 }
 
-type DashboardSidebarGenericProps = {
-  className: string;
-  children: React.ReactNode;
+/* Componente de Link na Sidebar */
+type SidebarNavLinkProps = {
+  name: string;
   href: string;
   active: boolean;
-  name: string;
+  isSidebarOpen: boolean;
+  children: React.ReactNode;
 };
-export function DashboardSidebarNavLink({
-  className,
-  children,
-  href,
-  active,
-  name,
-}: DashboardSidebarGenericProps) {
+
+function SidebarNavLink({ name, href, active, isSidebarOpen, children }: SidebarNavLinkProps) {
   return (
-    <Tooltip>
-      <TooltipTrigger asChild>
-        <Link
-          href={href}
-          className={cn(
-            "flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-slate-950 transition-colors hover:text-foreground",
-            active && "bg-teal-500",
-            className
-          )}
-        >
-          <span className="sr-only">{name}</span>
-          {children}
-        </Link>
-      </TooltipTrigger>
-      <TooltipContent side="left">{name}</TooltipContent>
-    </Tooltip>
+    <Link
+      href={href}
+      className={cn(
+        "flex items-center gap-3 p-2 rounded-lg transition-colors hover:bg-emerald-500 w-full",
+        active && "bg-teal-500 text-white"
+      )}
+    >
+      {children}
+      <span className={cn("text-sm transition-all", isSidebarOpen ? "opacity-100" : "opacity-0 hidden")}>{name}</span>
+    </Link>
   );
 }

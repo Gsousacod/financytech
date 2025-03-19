@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 import "./globals.css";
-import Sidebar from "@/components/sidebar/sidebar";
+
 
 
 export const metadata: Metadata = {
@@ -17,10 +17,9 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body
-        className={` antialiased`}
+        className={` antialiased font-roboto`}
       >
-        <Sidebar />
-       <div className=" "> {children}</div>
+        {children}
       </body>
     </html>
   );
