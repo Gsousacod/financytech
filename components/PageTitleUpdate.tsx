@@ -1,14 +1,25 @@
+"use client"; // Garante que o código só roda no cliente
+
+import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 
 const PageTitleUpdater = () => {
-    const pathname = usePathname();
-    const pageNames: Record<string, string> = {
+  const pathname = usePathname();
+
+ 
+  
+      const pageNames: Record<string, string> = {
         "/dashboard": "Início",
-        "/releases": "Lançamentos",
-        "/settings": "Configurações",
-        "/reports": "Relatórios",
-        };
-    return document.title = pageNames[pathname]; // Componente auxiliar, não precisa renderizar nada
+        "/dashboard/releases": "Lançamentos",
+        "/dashboard/settings": "Configurações",
+        "/dashboard/reports": "Relatórios",
+      };
+      console.log(pathname)
+      
+    
+    
+
+  return pageNames[pathname];
 };
 
 export default PageTitleUpdater;

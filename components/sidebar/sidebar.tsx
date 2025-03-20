@@ -38,16 +38,16 @@ export default function Sidebar({children}:SidebarProps) {
 
         {/* Navigation */}
         <nav className="flex flex-col items-start gap-2 px-2 py-5 mt-8">
-          <SidebarNavLink name="Início" href="/home" active={isActive("/home")} isSidebarOpen={isSidebarOpen}>
+          <SidebarNavLink name="Início" href="/dashboard" active={isActive("/")} isSidebarOpen={isSidebarOpen}>
             <Home className="h-6 w-6" />
           </SidebarNavLink>
-          <SidebarNavLink name="Lançamentos" href="/tasks" active={isActive("/tasks")} isSidebarOpen={isSidebarOpen}>
+          <SidebarNavLink name="Lançamentos" href="/dashboard/releases" active={isActive("/releases")} isSidebarOpen={isSidebarOpen}>
             <Wallet className="h-6 w-6" />
           </SidebarNavLink>
-          <SidebarNavLink name="Realtórios" href="/settings" active={isActive("/settings")} isSidebarOpen={isSidebarOpen}>
+          <SidebarNavLink name="Realtórios" href="/dashboard/reports" active={isActive("/reports")} isSidebarOpen={isSidebarOpen}>
             <ClipboardList className="h-6 w-6" />
           </SidebarNavLink>
-          <SidebarNavLink name="Configurações" href="/settings" active={isActive("/settings")} isSidebarOpen={isSidebarOpen}>
+          <SidebarNavLink name="Configurações" href="/dashboard/settings" active={isActive("/settings")} isSidebarOpen={isSidebarOpen}>
             <Settings className="h-6 w-6" />
           </SidebarNavLink>
         </nav>
@@ -71,7 +71,6 @@ export default function Sidebar({children}:SidebarProps) {
               <p className="pl-4"> 
                 <PageTitleUpdater />
                 </p>
-          
          </div>
 
        
@@ -90,7 +89,7 @@ export default function Sidebar({children}:SidebarProps) {
         </header>
 
         {/* Conteúdo */}
-        <main className="p-4 flex justify-center h-full bg-[#f1f3ee]">
+        <main className="p-4 flex justify-center">
             <div className="w-5xl">
             {children}
             </div>

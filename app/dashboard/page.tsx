@@ -16,7 +16,6 @@ export default async function Page() {
             <FinanceCards />
             <div className="h-min w-1/3 mt-4">
                 <ChartFinancy className=""/>
-
             </div>
         </>
        )
