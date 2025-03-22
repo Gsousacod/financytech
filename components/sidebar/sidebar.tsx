@@ -7,6 +7,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import PageTitleUpdater from "../PageTitleUpdate";
+import NotificationButton from "../header/NotificationButton";
 
 type SidebarProps={
   children: React.ReactNode;
@@ -32,22 +33,22 @@ export default function Sidebar({children}:SidebarProps) {
         <div className="flex items-center justify-start p-4">
           <Link href="/" className="flex items-center gap-2">
             <Package className="h-6 w-6" />
-            {isSidebarOpen && <span className="text-lg font-bold">FinancyTec</span>}
+            {isSidebarOpen && <span className="text-lg font-bold">FinancyTech</span>}
           </Link>
         </div>
 
         {/* Navigation */}
-        <nav className="flex flex-col items-start gap-2 px-2 py-5 mt-8">
-          <SidebarNavLink name="Início" href="/dashboard" active={isActive("/")} isSidebarOpen={isSidebarOpen}>
+        <nav className="flex flex-col items-start gap-2 ml-2 py-5 mt-8">
+          <SidebarNavLink name="Início" href="/dashboard" active={isActive("/dashboard")} isSidebarOpen={isSidebarOpen}>
             <Home className="h-6 w-6" />
           </SidebarNavLink>
-          <SidebarNavLink name="Lançamentos" href="/dashboard/releases" active={isActive("/releases")} isSidebarOpen={isSidebarOpen}>
+          <SidebarNavLink name="Lançamentos" href="/dashboard/releases" active={isActive("/dashboard/releases")} isSidebarOpen={isSidebarOpen}>
             <Wallet className="h-6 w-6" />
           </SidebarNavLink>
-          <SidebarNavLink name="Realtórios" href="/dashboard/reports" active={isActive("/reports")} isSidebarOpen={isSidebarOpen}>
+          <SidebarNavLink name="Realtórios" href="/dashboard/reports" active={isActive("/dashboard/reports")} isSidebarOpen={isSidebarOpen}>
             <ClipboardList className="h-6 w-6" />
           </SidebarNavLink>
-          <SidebarNavLink name="Configurações" href="/dashboard/settings" active={isActive("/settings")} isSidebarOpen={isSidebarOpen}>
+          <SidebarNavLink name="Configurações" href="/dashboard/settings" active={isActive("/dashboard/settings")} isSidebarOpen={isSidebarOpen}>
             <Settings className="h-6 w-6" />
           </SidebarNavLink>
         </nav>
@@ -61,7 +62,7 @@ export default function Sidebar({children}:SidebarProps) {
 
     
       <div className={cn("flex flex-col flex-1 transition-all duration-300", isSidebarOpen ? "ml-52" : "ml-14")}>
-        <header className="sticky top-0 z-30 flex h-14 items-center justify-between  bg-white px-4">
+        <header className="sticky top-0 z-30 flex h-14 items-center justify-between  bg-white px-4 shadow-sm">
           
          <div className="flex justify-center items-center">
          <Button size="icon" variant="ghost" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
@@ -81,10 +82,7 @@ export default function Sidebar({children}:SidebarProps) {
               <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
-            <Button size="icon" variant="ghost">
-              <Bell className="w-6 h-6" />
-              <span className="sr-only">Notificações</span>
-            </Button>
+            <NotificationButton />
           </div>
         </header>
 
@@ -113,8 +111,8 @@ function SidebarNavLink({ name, href, active, isSidebarOpen, children }: Sidebar
     <Link
       href={href}
       className={cn(
-        "flex items-center gap-3 p-2 rounded-lg transition-colors hover:bg-emerald-500 w-full",
-        active && "bg-teal-500 text-white"
+        "flex items-center gap-3 p-2 flex-1 transition-colors hover:bg-emerald-500 w-full",
+        active && "border-white border-r-8  text-white"
       )}
     >
       {children}

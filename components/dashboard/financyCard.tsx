@@ -17,7 +17,7 @@ const financeData = [
     color: "text-green-500",
   },
   {
-    title: "Reserva de Emergência",
+    title: "Reserva",
     value: "$2,500.00",
     change: "+3.0%",
     icon: <Shield className="h-5 w-5 text-blue-500" />,
@@ -36,7 +36,7 @@ export default function FinanceCards() {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
       {financeData.map((item, index) => (
-        <Card key={index} className="p-4 shadow-md">
+        <Card key={index} className="p-3 shadow-md">
           <CardContent className="flex flex-col gap-2">
             <div className="flex items-center gap-2">
               {item.icon}
