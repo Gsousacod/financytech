@@ -6,11 +6,10 @@ import { redirect } from "next/navigation";
 
 export default async function Page() {    
     const session = await getServerSession();
-   
 
-    // if(!session) {  
-    //     redirect('/');
-    // }
+    if(!session) {  
+        redirect('/');
+    }
     return (
         <>
             <h1 className="text-2xl mb-2">Visão geral</h1>

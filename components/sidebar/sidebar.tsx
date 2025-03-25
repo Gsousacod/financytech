@@ -8,11 +8,14 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import PageTitleUpdater from "../PageTitleUpdate";
 import NotificationButton from "../header/NotificationButton";
+import { getServerSession } from "next-auth";
 
 type SidebarProps={
   children: React.ReactNode;
 }
 export default function Sidebar({children}:SidebarProps) {
+
+  const session = getServerSession();
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const pathname = usePathname();
 
@@ -25,7 +28,7 @@ export default function Sidebar({children}:SidebarProps) {
       {/* Sidebar */}
       <aside
         className={cn(
-          "fixed inset-y-0 left-0 z-10 flex flex-col border-r bg-background transition-all duration-300 bg-[#279b48] text-white",
+          "fixed inset-y-0 left-0 z-10 flex flex-col border-r  transition-all duration-300 bg-[#279b48] text-white",
           isSidebarOpen ? "w-52" : "w-14"
         )}
       >
@@ -77,7 +80,7 @@ export default function Sidebar({children}:SidebarProps) {
        
           <div className="flex items-center gap-4">
 
-            <p className="px-4">Nome</p>
+            <p className="px-4">nome</p>
             <Avatar>
               <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
               <AvatarFallback>CN</AvatarFallback>

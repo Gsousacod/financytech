@@ -31,6 +31,7 @@ export function LoginForm({
   return (
     <form className={cn("flex flex-col gap-6", className)} onSubmit={login}>
       <div className="flex flex-col items-center gap-2 text-center">
+        <img src="logo4.png" alt=""  className="w-40 pb-4 "/>
         <h1 className="text-2xl font-bold">Login</h1>
         <p className="text-muted-foreground text-sm text-balance">
          Entre com seu email e sua senha
